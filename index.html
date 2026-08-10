@@ -1,64 +1,56 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Primer Truco AR</title>
-    <!-- Cargamos las librerías de Realidad Aumentada (A-Frame y AR.js) -->
-<script src="https://aframe.io"></script>
-<script src="https://jsdelivr.net"></script>
+    <meta name="viewport"
+          content="width=device-width,
+                   initial-scale=1.0,
+                   maximum-scale=1.0,
+                   user-scalable=no">
 
+    <title>Digital Flap</title>
 
+    <link rel="stylesheet" href="style.css">
 </head>
-<body style="margin: 0; overflow: hidden;">
 
-    <!-- Inicializamos la escena de AR apuntando a la cámara del teléfono -->
-    <!-- Busca tu etiqueta <a-scene> y reemplázala por esta: -->
-<a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false; cameraParametersUrl: ;">
+<body>
 
-        
-        <!-- 
-          Definimos el marcador (el disparador físico). 
-          Por ahora usaremos el marcador estándar 'hiro' para probar.
-        -->
-        <a-marker preset="hiro" id="marcador-carta">
-            
-            <!-- 
-              Esta es nuestra "carta digital" flotante. 
-              Inicialmente será un plano de color ROJO.
-            -->
-            <a-plane id="carta-digital" 
-                     position="0 0 0" 
-                     rotation="-90 0 0" 
-                     width="1.5" 
-                     height="2.2" 
-                     color="red">
-            </a-plane>
+    <div class="app">
 
-        </a-marker>
+        <header>
+            <h1>Digital Flap</h1>
+            <span id="status">Iniciando...</span>
+        </header>
 
-        <!-- Activamos la cámara del dispositivo -->
-        
-    </a-scene>
+        <main class="camera-container">
 
-    <!-- El "Script" del truco de magia -->
-    <script>
-        // Seleccionamos la carta digital y el cuerpo de la pantalla
-        const carta = document.getElementById('carta-digital');
-        let cartaCambiada = false;
+            <video
+                id="video"
+                autoplay
+                playsinline>
+            </video>
 
-        // Cuando toques CUALQUIER parte de la pantalla, ocurre la magia
-        document.body.addEventListener('click', () => {
-            if (!cartaCambiada) {
-                // Cambia instantáneamente a color AZUL (¡El efecto Flap!)
-                carta.setAttribute('color', 'blue');
-                cartaCambiada = true;
-            } else {
-                // Si vuelves a tocar, regresa a ROJO
-                carta.setAttribute('color', 'red');
-                cartaCambiada = false;
-            }
-        });
+            <canvas id="overlay"></canvas>
+
+        </main>
+
+        <div class="controls">
+
+            <button id="startCamera">
+                📷 Iniciar cámara
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- OpenCV -->
+    <script async
+        src="https://docs.opencv.org/4.x/opencv.js">
     </script>
+
+    <script src="app.js"></script>
+
 </body>
 </html>
